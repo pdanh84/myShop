@@ -9,31 +9,21 @@ using System.Threading.Tasks;
 
 namespace Shop.Model.Models
 {
-    [Table("ProductCategorys")]
-    public class ProductCategory : Auditable
+    [Table("Pages")]
+    public class Page: Auditable
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { set; get; }
         [Required]
-        [MaxLength(50)]
+        [MaxLength(256)]
         public string Name { set; get; }
+
+        [Column(TypeName = "varchar")]
         [Required]
         [MaxLength(256)]
-        [Column(TypeName ="varchar")]
         public string Alias { set; get; }
-        [MaxLength(500)]
-        public string Description { set; get; }
 
-        public int? ParentID { set; get; }
-
-        public int? DisplayOrder { set; get; }
-        [MaxLength(256)]
-        public string Image { set; get; }
-
-        public bool? HomeFlag { set; get; }
-
-        public virtual IEnumerable<Product> Products { set; get; }
-
+        public string Content { set; get; }
     }
 }

@@ -1,27 +1,28 @@
 ﻿using Shop.Model.Abstract;
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shop.Model.Models
 {
-    [Table("ProductCategorys")]
-    public class ProductCategory : Auditable
+    [Table("PostCategories")]
+    public class PostCategory :Auditable
     {
-        [Key]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { set; get; }
+
         [Required]
         [MaxLength(50)]
         public string Name { set; get; }
+
         [Required]
         [MaxLength(256)]
-        [Column(TypeName ="varchar")]
+        [Column(TypeName = "varchar")]
         public string Alias { set; get; }
+
+        [Required]
         [MaxLength(500)]
         public string Description { set; get; }
 
@@ -33,7 +34,6 @@ namespace Shop.Model.Models
 
         public bool? HomeFlag { set; get; }
 
-        public virtual IEnumerable<Product> Products { set; get; }
-
+        public virtual IEnumerable<Post> Posts { set; get; }
     }
 }
