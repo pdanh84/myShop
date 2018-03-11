@@ -10,10 +10,10 @@ namespace Shop.Model.Models
     public class OrderDetail : Auditable
     {
         [Key]
-        [Index("1")]
+        [Column(Order=1)]
         public int OrderID { set; get; }
         [Key]
-        [Index("2")]
+        [Column(Order = 2)]
         public int ProductID { set; get; }
 
         public int Quantity { set; get; }

@@ -13,11 +13,11 @@ namespace Shop.Model.Models
     public  class ProductTag: Auditable
     {
         [Key]
-        [Index("1")]
+        [Column(Order = 1)]
         public int ProductID { set; get; }
 
         [Key]
-        [Index("2")]
+        [Column(Order = 2)]
         [Required]
         [MaxLength(50)]
         public string TagID { set; get; }

@@ -13,10 +13,12 @@ namespace Shop.Model.Models
     public class PostTag:Auditable
     {
         [Required]
-        [Index("1")]
+        [Key]
+        [Column(Order = 1)]
         public int PostID { set; get; }
         [Required]
-        [Index("2")]
+        [Key]
+        [Column(Order = 2)]
         [MaxLength(50)]
         public string TagID { set; get; }
         [ForeignKey("PostID")]

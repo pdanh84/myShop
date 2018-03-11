@@ -26,7 +26,7 @@ namespace Shop.Model.Models
         public int CategoryID { set; get; }
         [MaxLength(256)]
         public string Image { set; get; }
-        [DataType("")]
+        [Column(TypeName = "xml")]
         public string MoreImages { set; get; }
 
         public decimal Price { set; get; }
