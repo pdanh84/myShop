@@ -11,6 +11,8 @@ namespace Shop.Data.Repositories
     public interface IPostCategoryRepository : IRepository<PostCategory>
     {
         IEnumerable<PostCategory> GetByAlias(string alias);
+        IEnumerable<PostCategory> GetByParentId(int parentId);
+        IEnumerable<PostCategory> GetById(int id);
     }
     public class PostCategoryRepository: RepositoryBase<PostCategory> , IPostCategoryRepository
     {
@@ -27,6 +29,18 @@ namespace Shop.Data.Repositories
             var query = (from postCategory in this.DbContext.PostCategories
                          where postCategory.Alias == alias
                          select postCategory) as IEnumerable<PostCategory>;
+            return query;
+        }
+
+        public IEnumerable<PostCategory> GetById(int id)
+        {
+            var query = this.DbContext.PostCategories.Select(x => x.ID == id) as IEnumerable<PostCategory>;
+            return query;
+        }
+
+        public IEnumerable<PostCategory> GetByParentId(int parentId)
+        {
+            var query = this.DbContext.PostCategories.Select(x => x.ParentID == parentId) as IEnumerable<PostCategory>;
             return query;
         }
     }

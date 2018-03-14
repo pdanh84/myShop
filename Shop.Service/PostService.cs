@@ -31,9 +31,19 @@ namespace Shop.Service
         //Get multi entity
         IEnumerable<Post> GetMulti(Expression<Func<Post, bool>> where, string[] includes = null);
         //Get paging entity
-        IEnumerable<Post> GetMultiPaging(Expression<Func<Post, bool>> filter, out int total, int index = 0, int size = 50, string[] includes = null);
+        IEnumerable<Post> GetMultiPaging(Expression<Func<Post, bool>> filter, out int total, int index = 0, int size = 20, string[] includes = null);
 
-        IEnumerable<Post> GetAllPaging(out int total, int index = 0, int size = 50, string[] includes = null);
+        IEnumerable<Post> GetAllPaging(out int total, int index = 0, int size = 20, string[] includes = null);
+        /// <summary>
+        /// Get tag paging by tagid
+        /// </summary>
+        /// <param name="tagId"></param>
+        /// <param name="total"></param>
+        /// <param name="index"></param>
+        /// <param name="size"></param>
+        /// <param name="includes"></param>
+        /// <returns></returns>
+        IEnumerable<Post> GetAllByTagPaging(string tagId,out int total, int index = 0, int size = 20, string[] includes = null);
 
         void SaveChanges();
     }
@@ -66,23 +76,23 @@ namespace Shop.Service
             return _postRepository.GetAll(new string[] { "PostCategory" });
         }
 
-        public IEnumerable<Post> GetMultiPaging(Expression<Func<Post, bool>> filter, out int total, int index = 0, int size = 50, string[] includes = null)
+        public IEnumerable<Post> GetMultiPaging(Expression<Func<Post, bool>> filter, out int total, int index = 0, int size = 20, string[] includes = null)
         {
-            throw new NotImplementedException();
+            return _postRepository.GetMultiPaging(x => x.Status, out total, index, size);
         }
-        public IEnumerable<Post> GetAllPaging(out int total, int index = 0, int size = 50, string[] includes = null)
+        public IEnumerable<Post> GetAllPaging(out int total, int index = 0, int size = 20, string[] includes = null)
         {
             return _postRepository.GetMultiPaging(x => x.Status,out total, index, size);
         }
 
         public Post GetSingleByCondition(Expression<Func<Post, bool>> expression, string[] includes = null)
         {
-            throw new NotImplementedException();
+            return _postRepository.GetSingleByCondition(expression);
         }
 
         public Post GetSingleById(int id)
         {
-            throw new NotImplementedException();
+            return _postRepository.GetSingleById(id);
         }
 
         public void Update(Post entity)
@@ -92,17 +102,22 @@ namespace Shop.Service
 
         public void DeleteMulti(Expression<Func<Post, bool>> where)
         {
-            throw new NotImplementedException();
+            _postRepository.DeleteMulti(where);
         }
 
         public IEnumerable<Post> GetMulti(Expression<Func<Post, bool>> where, string[] includes = null)
         {
-            throw new NotImplementedException();
+            return _postRepository.GetMulti(where);
         }
 
         public void SaveChanges()
         {
             _unitOfWork.Commit();
+        }
+        
+        public IEnumerable<Post> GetAllByTagPaging(string tagId, out int total, int index = 0, int size = 20, string[] includes = null)
+        {
+            return _postRepository.GetAllByTag(tagId, index, size,out total);
         }
     }
 }
