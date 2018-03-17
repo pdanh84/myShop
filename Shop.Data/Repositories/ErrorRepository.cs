@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace Shop.Data.Repositories
 {
-    public interface IOrderRepository : IRepository<Order>
+    public interface IErrorRepository : IRepository<Error>
     {
 
     }
-    public class OrderRepository: RepositoryBase<Order> , IOrderRepository
+    public class ErrorRepository: RepositoryBase<Error>, IErrorRepository
     {
-        public OrderRepository(IDbFactory dbFactory) : base(dbFactory)
-        {
-
+       
+        public ErrorRepository(IDbFactory dbFactory):base(dbFactory){
+            
         }
     }
 }

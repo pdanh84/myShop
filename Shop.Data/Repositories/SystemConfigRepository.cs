@@ -15,7 +15,7 @@ namespace Shop.Data.Repositories
     public class SystemConfigRepository: RepositoryBase<SystemConfig>, ISystemConfigRepository
     {
        
-        public SystemConfigRepository(DbFactory dbFactory):base(dbFactory){
+        public SystemConfigRepository(IDbFactory dbFactory):base(dbFactory){
             
         }
     }

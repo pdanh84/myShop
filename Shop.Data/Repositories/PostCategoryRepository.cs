@@ -12,7 +12,7 @@ namespace Shop.Data.Repositories
     {
         IEnumerable<PostCategory> GetByAlias(string alias);
         IEnumerable<PostCategory> GetByParentId(int parentId);
-        IEnumerable<PostCategory> GetById(int id);
+        PostCategory GetById(int id);
     }
     public class PostCategoryRepository: RepositoryBase<PostCategory> , IPostCategoryRepository
     {
@@ -32,9 +32,9 @@ namespace Shop.Data.Repositories
             return query;
         }
 
-        public IEnumerable<PostCategory> GetById(int id)
+        public PostCategory GetById(int id)
         {
-            var query = this.DbContext.PostCategories.Select(x => x.ID == id) as IEnumerable<PostCategory>;
+            var query = this.DbContext.PostCategories.Select(x => x.ID == id) as PostCategory;
             return query;
         }
 

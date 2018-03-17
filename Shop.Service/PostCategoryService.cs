@@ -25,9 +25,9 @@ namespace Shop.Service
         //Get multi entity
         IEnumerable<PostCategory> GetByParentId(int parentId);
      
-        IEnumerable<PostCategory> GetById(int id);
+        PostCategory GetById(int id);
 
-        void SaveChanges();
+        void Save();
     }
     public class PostCategoryService : IPostCategoryService
     {
@@ -68,12 +68,12 @@ namespace Shop.Service
             return _postCategoryRepository.GetByParentId(parentId);
         }
 
-        public IEnumerable<PostCategory> GetById(int id)
+        public PostCategory GetById(int id)
         {
             return _postCategoryRepository.GetById(id);
         }
 
-        public void SaveChanges()
+        public void Save()
         {
             _unitOfWork.Commit();
         }

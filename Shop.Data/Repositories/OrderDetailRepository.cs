@@ -15,7 +15,7 @@ namespace Shop.Data.Repositories
     }
     public class OrderDetailRepository: RepositoryBase<Order> , IOrderDetailRepository
     {
-        public OrderDetailRepository(DbFactory dbFactory) : base(dbFactory)
+        public OrderDetailRepository(IDbFactory dbFactory) : base(dbFactory)
         {
 
         }

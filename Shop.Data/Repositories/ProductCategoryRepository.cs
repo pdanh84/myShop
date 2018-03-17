@@ -14,7 +14,7 @@ namespace Shop.Data.Repositories
     }
     public class ProductCategoryRepository : RepositoryBase<ProductCategory>,IProductCategoryRepository
     {
-        ProductCategoryRepository(DbFactory dbFactory) : base(dbFactory)
+        ProductCategoryRepository(IDbFactory dbFactory) : base(dbFactory)
         {
 
         }
