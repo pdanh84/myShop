@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace Shop.Web.Api
 {
+    [RoutePrefix("api/account")]
     public class AccountController : ApiController
     {
         private ApplicationSignInManager _signInManager;
@@ -54,6 +55,7 @@ namespace Shop.Web.Api
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
+        [Route("login")]
         //[ValidateAntiForgeryToken]
         public async Task<HttpResponseMessage> Login(HttpRequestMessage request, string userName, string password, bool rememberMe)
         {
