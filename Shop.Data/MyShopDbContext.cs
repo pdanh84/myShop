@@ -1,4 +1,5 @@
-﻿using Shop.Model.Models;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Shop.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Data
 {
-    public class MyShopDbContext: DbContext
+    public class MyShopDbContext: IdentityDbContext
     {
         public MyShopDbContext() : base("DefaultConnection")
         {
@@ -49,9 +50,15 @@ namespace Shop.Data
 
         public DbSet<Error> Errors { set; get; }
 
+        public static MyShopDbContext Create()
+        {
+            return new MyShopDbContext();
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            
+            modelBuilder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId , i.RoleId });
+            modelBuilder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
         }
     }
 }

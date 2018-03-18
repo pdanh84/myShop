@@ -16,17 +16,22 @@ using Shop.Web.Mappings;
 using AutoMapper;
 using Shop.Model.Models;
 using Shop.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using System.Web;
+using Microsoft.Owin.Security.DataProtection;
 
 [assembly: OwinStartup(typeof(Shop.Web.App_Start.Startup))]
 
 namespace Shop.Web.App_Start
 {
-    public class Startup
+    public partial class Startup
     {
         public void Configuration(IAppBuilder app)
         {
             // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=316888
             ConfigAutofac(app);
+            ConfigureAuth(app);
 
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<Post, PostViewModel>();
@@ -51,6 +56,14 @@ namespace Shop.Web.App_Start
             builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
             //Register DbContext
             builder.RegisterType<MyShopDbContext>().AsSelf().InstancePerRequest();
+
+            //Register ASP.NET Indentity
+            //builder.RegisterType<ApplicationUserStore>().As<IUserStore<ApplicationUser>>().InstancePerRequest();
+            builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
+            builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
+            builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
+            builder.Register(c => app.GetDataProtectionProvider()).InstancePerRequest();
+
             //Register repository
             builder.RegisterAssemblyTypes(typeof(PostCategoryRepository).Assembly)
                 .Where(rp => rp.Name.EndsWith("Repository"))
